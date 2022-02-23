@@ -1,6 +1,10 @@
 package jpabook.jpastart;
 
+import jpabook.jpastart.entity.Delivery;
 import jpabook.jpastart.entity.Member;
+import jpabook.jpastart.entity.Order;
+import jpabook.jpastart.entity.OrderItem;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -25,6 +29,17 @@ public class JpaStartApplication {
 
             tx.begin(); //트랜잭션 시작
             //TODO 비즈니스 로직
+            Delivery delivery = new Delivery();
+            OrderItem orderItem1 = new OrderItem();
+            OrderItem orderItem2 = new OrderItem();
+
+            Order order = new Order();
+            order.setDelivery(delivery);
+            order.addOrderItem(orderItem1);
+            order.addOrderItem(orderItem2);
+
+            em.persist(order);
+
             tx.commit();//트랜잭션 커밋
 
         } catch (Exception e) {
